@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Dashboard</h1>
+            <h1>Department</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item active">Department</li>
             </ol>
           </div>
         </div>
@@ -25,7 +25,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">General Fund PPE</h3>
+          <h3 class="card-title">List of Department</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addDepartmentModal"><i class="bi-clipboard-plus"></i>  Add Item</button>
@@ -35,7 +35,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add Department</h5>
                       </div>
                       <div class="modal-body">  
                         <form action="#" method="post" id="department_form" enctype="multipart/form-data">
@@ -58,36 +58,13 @@
                   </div>
                 </div>
                 <!-- Modal -->
-          </div>
-          
+          </div> 
         </div>
-        <div class="card-body">
-          
-          <table id="example" class="table table-striped table-bordered" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Department</th>
-                    <th>Code</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Department</th>
-                    <th>Code</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </tfoot>
-        </table>
 
+        <div class="card-body" id="department_ui">
 
         </div>
-       
+
       </div>
       <!-- /.card -->
 
@@ -97,13 +74,26 @@
 
 @endsection
 
+
 @section('script')
 <script>
   $(document).ready(function() {
-    $('#example').DataTable( {
-        responsive: true
-    } );
 
+    fetchAllDepartment();
+    //fetch all Departments ajax request
+    function fetchAllDepartment(){
+     
+      $.ajax({
+        url: '{{ route('admin.fetchAllDept') }}',
+        method: 'get',
+        success: function(res){
+          $("#department_ui").html(res);
+          $("#example").DataTable({});
+        }
+      });
+    }
+
+    //add new department ajax request
     $("#department_form").submit(function(e){
         e.preventDefault();
         const fd = new FormData(this);
@@ -125,6 +115,7 @@
                     showConfirmButton: false,
                     timer: 2500
                   })
+                  fetchAllDepartment();
                 }
                 $("#department_btn").text("Save");
                 $("#department_form")[0].reset();
