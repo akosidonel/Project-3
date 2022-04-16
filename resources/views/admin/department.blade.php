@@ -30,7 +30,7 @@
           <div class="card-tools">
             <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addDepartmentModal"><i class="bi-clipboard-plus"></i>  Add Item</button>
 
-                <!-- Modal -->
+                <!--Add Department Modal -->
                 <div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -58,6 +58,36 @@
                   </div>
                 </div>
                 <!-- Modal -->
+
+                  <!--Edit Department Modal -->
+                  <div class="modal fade" id="editDepartmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Department</h5>
+                      </div>
+                      <div class="modal-body">  
+                        <form action="#" method="post" id="department_form" enctype="multipart/form-data">
+                        @csrf  
+                        <div class="form-group">
+                            <label for="departmentInput">Department</label>
+                            <input type="text" class="form-control" id="department_name" name="department_name" placeholder="Enter department">
+                          </div>
+                          <div class="form-group">
+                            <label for="departmentCodeInput">Password</label>
+                            <input type="text" class="form-control" id="department_code" name="department_code" placeholder="Enter department code">
+                          </div>  
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="department_btn" class="btn btn-primary">Save</button>
+                    </form>  
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Modal -->
+
           </div> 
         </div>
 

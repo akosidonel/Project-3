@@ -42,7 +42,7 @@ class MainController extends Controller
                 <td>'.$data->department_code.'</td>
                 <td>'.$data->status.'</td>
                 <td>
-                <a href="#" id="'.$data->id.'" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editDepartmentForm" ><i class="bi bi-pencil-square h4"></i></a>
+                <a href="#" id="'.$data->id.'" class="text-success mx-1 editIcon" data-toggle="modal" data-target="#editDepartmentModal" ><i class="bi bi-pencil-square h4"></i></a>
                 <a href="#" id="'.$data->id.'" class="text-danger mx-1 deleteIcon"><i class="bi bi-trash h4"></i></a>
                 </td>
             </tr>
