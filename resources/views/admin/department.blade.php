@@ -45,7 +45,7 @@
                             <input type="text" class="form-control" id="department_name" name="department_name" placeholder="Enter department">
                           </div>
                           <div class="form-group">
-                            <label for="departmentCodeInput">Password</label>
+                            <label for="departmentCodeInput">Department Code</label>
                             <input type="text" class="form-control" id="department_code" name="department_code" placeholder="Enter department code">
                           </div>  
                       </div>
@@ -67,20 +67,25 @@
                         <h5 class="modal-title" id="exampleModalLabel">Edit Department</h5>
                       </div>
                       <div class="modal-body">  
-                        <form action="#" method="post" id="department_form" enctype="multipart/form-data">
+                        <form action="#" method="post" id="edit_department_form" enctype="multipart/form-data">
                         @csrf  
+                        <input type="hidden" id="department_id" name="department_id">
                         <div class="form-group">
                             <label for="departmentInput">Department</label>
-                            <input type="text" class="form-control" id="department_name" name="department_name" placeholder="Enter department">
+                            <input type="text" class="form-control" id="edit_department_name" name="edit_department_name" placeholder="Enter department">
                           </div>
                           <div class="form-group">
-                            <label for="departmentCodeInput">Password</label>
-                            <input type="text" class="form-control" id="department_code" name="department_code" placeholder="Enter department code">
+                            <label for="departmentCodeInput">Department Code</label>
+                            <input type="text" class="form-control" id="edit_department_code" name="edit_department_code" placeholder="Enter department code">
+                          </div> 
+                          <div class="form-group">
+                            <label for="departmentCodeInput">Status</label>
+                            <input type="text" class="form-control" id="edit_department_status" name="edit_department_status" placeholder="Enter department code">
                           </div>  
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" id="department_btn" class="btn btn-primary">Save</button>
+                        <button type="submit" id="edit_department_btn" class="btn btn-primary">Update</button>
                     </form>  
                     </div>
                     </div>
@@ -118,10 +123,32 @@
         method: 'get',
         success: function(res){
           $("#department_ui").html(res);
-          $("#example").DataTable({});
+          $("#example").DataTable({
+            order: [0, 'asc']
+          });
         }
       });
     }
+
+    //edit department ajax request
+    $(document).on('click', '.editIcon', function(e){
+      e.preventDefault();
+      let id = $(this).attr('id');
+      $.ajax({
+        url: '{{ route('admin.editDept') }}',
+        method: 'get',
+        data: {
+          id: id,
+          _token: '{{ csrf_token() }}'},
+        success: function(res){
+          $("#department_id").val(res.id);
+          $("#edit_department_name").val(res.department_name);
+          $("#edit_department_code").val(res.department_code);
+          $("#edit_department_status").val(res.status);
+        }
+      });
+    });
+
 
     //add new department ajax request
     $("#department_form").submit(function(e){
@@ -153,6 +180,6 @@
             } 
         });
     })
-} );
+});
 </script>
 @endsection

@@ -25,7 +25,7 @@ class MainController extends Controller
        $department = Department::all();
        $output = "";
        if($department->count() > 0){
-           $output .= '<table id="example" class="table table-striped table-bordered">
+           $output .= '<table id="example" class="table table-striped table-bordered dt-responsive nowrap text-center align-middle" style="width:100%">
            <thead>
            <tr>
                <th>Department</th>
@@ -62,5 +62,11 @@ class MainController extends Controller
        }else{
            echo '<h1 class="text-center text-secondary my-5">No records found in the database!</h1>';
        }
-    }    
+    }
+
+    Public function editDept(Request $request){
+        $id = $request->id;
+        $dept_id = Department::find($id);
+        return response() ->json($dept_id);
+    }
 }
