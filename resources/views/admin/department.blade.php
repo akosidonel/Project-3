@@ -28,7 +28,7 @@
           <h3 class="card-title">List of Department</h3>
 
           <div class="card-tools">
-            <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addDepartmentModal"><i class="bi-clipboard-plus"></i>  Add Item</button>
+            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#addDepartmentModal"><i class="bi-clipboard-plus"></i>  Add Item</button>
 
                 <!--Add Department Modal -->
                 <div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -69,7 +69,7 @@
                       <div class="modal-body">  
                         <form action="#" method="post" id="edit_department_form" enctype="multipart/form-data">
                         @csrf  
-                        <input type="hidden" id="department_id" name="department_id">
+                        <input type="hidden" id="dept_id" name="dept_id">
                         <div class="form-group">
                             <label for="departmentInput">Department</label>
                             <input type="text" class="form-control" id="edit_department_name" name="edit_department_name" placeholder="Enter department">
@@ -130,6 +130,73 @@
       });
     }
 
+    //delete department ajax request
+    $(document).on('click','.deleteIcon' , function(e){
+      e.preventDefault();
+      let id = $(this).attr('id');
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '{{ route('admin.deleteDept') }}',
+                method: 'post',
+                data: {
+                  id: id,
+                  _token: '{{ csrf_token() }}'},
+                  success: function(res){
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'success',
+                      title: 'Department deleted successfully!',
+                      showConfirmButton: false,
+                      timer: 2500
+                  });
+                  fetchAllDepartment();
+                }
+            });
+        }
+      });
+    });
+    
+
+    //update department ajax request
+    $("#edit_department_form").submit(function(e){
+      e.preventDefault();
+      const d = new FormData(this);
+      $("#edit_department_btn").text("Updating...");
+      $.ajax({
+        url: '{{ route('admin.updateDept') }}',
+        method:'post',
+        data: d,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function(res){
+          if(res.status == 200){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Department updated successfully!',
+              showConfirmButton: false,
+              timer: 2500
+            })
+            fetchAllDepartment();
+          }
+          $("#edit_department_btn").text("Save");
+          $("#edit_department_form")[0].reset();
+          $("#editDepartmentModal").modal("hide");
+        }
+      });
+    }); 
+
+
     //edit department ajax request
     $(document).on('click', '.editIcon', function(e){
       e.preventDefault();
@@ -141,10 +208,10 @@
           id: id,
           _token: '{{ csrf_token() }}'},
         success: function(res){
-          $("#department_id").val(res.id);
           $("#edit_department_name").val(res.department_name);
           $("#edit_department_code").val(res.department_code);
           $("#edit_department_status").val(res.status);
+          $("#dept_id").val(res.id);
         }
       });
     });

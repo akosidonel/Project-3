@@ -25,7 +25,7 @@ class MainController extends Controller
        $department = Department::all();
        $output = "";
        if($department->count() > 0){
-           $output .= '<table id="example" class="table table-striped table-bordered dt-responsive nowrap text-center align-middle" style="width:100%">
+           $output .= '<table id="example" class="table table-striped dt-responsive nowrap text-center align-middle" style="width:100%">
            <thead>
            <tr>
                <th>Department</th>
@@ -68,5 +68,22 @@ class MainController extends Controller
         $id = $request->id;
         $dept_id = Department::find($id);
         return response() ->json($dept_id);
+    }
+
+    Public function updateDept(Request $request){
+        $dept_update = Department::find($request->dept_id);
+        $update_dept = [
+            'edit_department_name'=>$request->department_name,
+            'edit_department_code'=>$request->department_code,
+            'edit_department_status'=>$request->status
+        ];
+        $dept_update->update($update_dept);
+            return response()->json([
+                'status'=> 200
+        ]);
+    }
+    Public function deleteDept(Request $request){
+        $id = $request->id;
+        $dept_id = Department::destroy($id);
     }
 }
