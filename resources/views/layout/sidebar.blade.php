@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <img src="{{ asset('dist/img/gso-logo.png')}}" alt="GSO Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">General Services Office</span>
+      <span class="brand-text font-weight-light h6">General Services Office</span>
     </a>
 
     <!-- Sidebar -->
@@ -22,7 +22,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/admin/dashboard" class="nav-link">
                   <i class="nav-icon fas bi-grid-3x3-gap"></i>
                   <p>
                     Dashboard
@@ -31,7 +31,7 @@
               </li>
     
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/admin/department" class="nav-link">
               <i class="nav-icon fas bi-building"></i>
               <p>
                 Department
@@ -48,25 +48,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/admin/gen-inventory" class="nav-link">
                   <i class="far bi-arrow-right nav-icon"></i>
                   <p>GPPE Inventory</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/admin/sef-inventory" class="nav-link">
                   <i class="far bi-arrow-right nav-icon"></i>
                   <p>SEF Inventory</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/admin/return-item" class="nav-link">
                   <i class="far bi-arrow-right nav-icon"></i>
                   <p>Return Item</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/admin/archived" class="nav-link">
                   <i class="far bi-arrow-right nav-icon"></i>
                   <p>Archived</p>
                 </a>
@@ -74,7 +74,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/admin/user-management" class="nav-link">
               <i class="nav-icon fas bi-people-fill"></i>
               <p>
                 User Management
@@ -82,7 +82,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/admin/activity-log" class="nav-link">
               <i class="nav-icon fas bi-clipboard2-check"></i>
               <p>
                 Activity Log

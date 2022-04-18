@@ -28,14 +28,14 @@
           <h3 class="card-title">List of Department</h3>
 
           <div class="card-tools">
-            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#addDepartmentModal"><i class="bi-clipboard-plus"></i>  Add Item</button>
+            <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#addDepartmentModal"><i class="bi-clipboard-plus"></i>  Add Department</button>
 
                 <!--Add Department Modal -->
-                <div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="addDepartmentModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Department</h5>
+                      <div class="modal-header bg-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Department Information</h5>
                       </div>
                       <div class="modal-body">  
                         <form action="#" method="post" id="department_form" enctype="multipart/form-data">
@@ -49,9 +49,9 @@
                             <input type="text" class="form-control" id="department_code" name="department_code" placeholder="Enter department code">
                           </div>  
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <div class="modal-footer bg-secondary">
                         <button type="submit" id="department_btn" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>   
                     </form>  
                     </div>
                     </div>
@@ -63,7 +63,7 @@
                   <div class="modal fade" id="editDepartmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
-                      <div class="modal-header">
+                      <div class="modal-header bg-secondary">
                         <h5 class="modal-title" id="exampleModalLabel">Edit Department</h5>
                       </div>
                       <div class="modal-body">  
@@ -83,9 +83,9 @@
                             <input type="text" class="form-control" id="edit_department_status" name="edit_department_status" placeholder="Enter department code">
                           </div>  
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <div class="modal-footer bg-secondary">
                         <button type="submit" id="edit_department_btn" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </form>  
                     </div>
                     </div>

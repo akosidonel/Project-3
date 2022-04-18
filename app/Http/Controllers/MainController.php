@@ -7,9 +7,15 @@ use App\Models\Department;
 
 class MainController extends Controller
 {
+    //view dashboard ui
+    Public function dashboard(){
+        return view('admin.dashboard');
+    }
+    //view department ui
     Public function department(){
         return view('admin.department');
     }
+    //add department ajax request
     Public function save(Request $request){
         $department_data = [
             'department_name'=> $request->department_name,
@@ -21,6 +27,8 @@ class MainController extends Controller
                 'status' => 200
             ]);
     }
+    //fetch dapartment ajax request
+    //view all department data in the dataTable
     Public function fetchAllDept(){
        $department = Department::all();
        $output = "";
@@ -63,13 +71,13 @@ class MainController extends Controller
            echo '<h1 class="text-center text-secondary my-5">No records found in the database!</h1>';
        }
     }
-
+    //view specific department in modal using ajax request
     Public function editDept(Request $request){
         $id = $request->id;
         $dept_id = Department::find($id);
         return response() ->json($dept_id);
     }
-
+    //update department data ajax request
     Public function updateDept(Request $request){
         $dept_update = Department::find($request->dept_id);
         $update_dept = [
@@ -82,8 +90,32 @@ class MainController extends Controller
                 'status'=> 200
         ]);
     }
+    //delete department ajax request
     Public function deleteDept(Request $request){
         $id = $request->id;
         $dept_id = Department::destroy($id);
+    }
+    //view general fund inventory ui
+    Public function generalFundInventory(){
+        return view('admin.gen-inventory');
+    }
+    //view sef fund inventory ui
+    Public function sefInventory(){
+        return view('admin.sef-inventory');
+    }
+    // view return item ui
+    Public function returnItem(){
+        return view('admin.return-item');
+    }
+    //view archive item ui
+    Public function archived(){
+        return view('admin.archived');
+    }
+    //view user-management ui
+    Public function userManagement(){
+        return view('admin.user-management');
+    }
+    Public function activityLog(){
+        return view('admin.activity-log');
     }
 }
