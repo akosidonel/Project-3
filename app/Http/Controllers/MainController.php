@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Department;
+use App\Models\User;
 
 class MainController extends Controller
 {
@@ -115,6 +116,72 @@ class MainController extends Controller
     Public function userManagement(){
         return view('admin.user-management');
     }
+    Public function saveUser(Request $request){
+        $user_data = [
+            'fname'=> $request->fname,
+            'lname'=> $request->lname,
+            'email'=> $request->email,
+            'phonenumber'=> $request->phonenumber,
+            'password'=> $request->password
+        ];
+
+        User::create($user_data);
+        return response()->json([
+            'status'=> 200
+        ]);
+    }
+    Public function fetchAllUser(){
+        $users = User::all();
+        $output = "";
+        if($users->count() > 0){
+            $output .= '<table id="example" class="table table-striped dt-responsive nowrap text-center align-middle" style="width:100%">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th> 
+                <th>Status</th>
+                <th>Action</th>           
+            </tr>
+        </thead>
+        <tbody>';
+         foreach($users as $data){
+             $output .='
+             <tr>
+                 <td>'.$data->id.'</td>
+                 <td>'.$data->fname.' '.$data->lname.'</td>
+                 <td>'.$data->email.'</td>
+                 <td>'.$data->phonenumber.'</td>
+                 <td>Active</td>
+                 <td>
+                    <a href="#" id="'.$data->id.'" class="text-success mx-1 editIcon" data-toggle="modal" data-target="#editUserModal" ><i class="bi bi-pencil-square h4"></i></a>
+                    <a href="#" id="'.$data->id.'" class="text-danger mx-1 deleteIcon"><i class="bi bi-trash h4"></i></a>
+                 </td>
+             </tr>
+             ';
+         }
+         $output .='</tbody>
+         <tfoot>
+             <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th> 
+                <th>Status</th>
+                <th>Action</th>    
+             </tr>
+         </tfoot>
+             </table>';
+             echo $output;
+        }else{
+            echo '<h1 class="text-center text-secondary my-5">No records found in the database!</h1>';
+        }
+
+    }
+
+
+
     Public function activityLog(){
         return view('admin.activity-log');
     }

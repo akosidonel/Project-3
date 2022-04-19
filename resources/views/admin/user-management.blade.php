@@ -54,16 +54,16 @@
                           </div> 
                           <div class="form-group">
                             <label for="departmentCodeInput">Contact Number</label>
-                            <input type="text" class="form-control" id="cnumber" name="cnumber" placeholder="Enter contact number">
+                            <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="Enter contact number">
                           </div>
                           <div class="form-group">
                             <label for="departmentCodeInput">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
                           </div>
-                          <div class="form-group">
+                          <!-- <div class="form-group">
                             <label for="departmentCodeInput">Confirm Password</label>
                             <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm password">
-                          </div>
+                          </div> -->
                       </div>
                       <div class="modal-footer bg-secondary">
                         <button type="submit" id="user_btn" class="btn btn-primary">Save</button>
@@ -75,44 +75,12 @@
                 </div>
                 <!-- Modal -->
 
-                  <!--Edit Department Modal -->
-                  <div class="modal fade" id="editDepartmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update User Information</h5>
-                      </div>
-                      <div class="modal-body">  
-                        <form action="#" method="post" id="edit_department_form" enctype="multipart/form-data">
-                        @csrf  
-                        <input type="hidden" id="dept_id" name="dept_id">
-                        <div class="form-group">
-                            <label for="departmentInput">Department</label>
-                            <input type="text" class="form-control" id="edit_department_name" name="edit_department_name" placeholder="Enter department">
-                          </div>
-                          <div class="form-group">
-                            <label for="departmentCodeInput">Department Code</label>
-                            <input type="text" class="form-control" id="edit_department_code" name="edit_department_code" placeholder="Enter department code">
-                          </div> 
-                          <div class="form-group">
-                            <label for="departmentCodeInput">Status</label>
-                            <input type="text" class="form-control" id="edit_department_status" name="edit_department_status" placeholder="Enter department code">
-                          </div>  
-                      </div>
-                      <div class="modal-footer bg-secondary">
-                        <button type="submit" id="edit_department_btn" class="btn btn-primary">Update</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </form>  
-                    </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Modal -->
+                
 
           </div> 
         </div>
 
-        <div class="card-body" id="department_ui">
+        <div class="card-body" id="user_ui">
 
 
         </div>
@@ -123,5 +91,50 @@
     </section>
     <!-- /.content -->
   </div>
+
+@endsection
+
+@section('script')
+
+<script>
+  $(document).ready(function(){
+
+    fetchAllUsers();
+    //fetch all departments ajax request
+    function fetchAllUsers(){
+
+      $.ajax({
+        url: '{{ route('admin.fetchAllUser') }}',
+        method: 'get',
+        success: function(res){
+          $("#user_ui").html(res);
+          $("#example").DataTable({
+            order:[0,'asc']
+          });
+        }
+      });
+    }
+
+
+    //add new user ajax request
+    $("#user_form").submit(function(e){
+      e.preventDefault();
+      const fd = new FormData(this);
+    $("#user_btn").text("Saving...");
+
+    $.ajax({
+      url: '{{ route('admin.save-user') }}',
+      method: 'post',
+      data: fd,
+      cache: false,
+      processData: false,
+      contentType: false,
+      success: function(res){
+        console.log(res);
+      }
+    });
+  });
+});
+</script>
 
 @endsection

@@ -20,6 +20,11 @@ Route::get('/admin/gen-inventory',[MainController::class,'generalFundInventory']
 Route::get('/admin/sef-inventory',[MainController::class,'sefInventory'])->name('admin.sef-inventory');
 Route::get('/admin/return-item',[MainController::class,'returnItem'])->name('admin.return-item');
 Route::get('admin/archived',[MainController::class,'archived'])->name('admin.archived');
+
 Route::get('/admin/user-management' ,[MainController::class,'userManagement'])->name('admin.user-management');
+Route::post('/admin/save-user', [MainController::class,'saveUser'])->name('admin.save-user');
+Route::get('/admin/fetch-users',[MainController::class, 'fetchAllUser'])->name('admin.fetchAllUser');
+
+
 Route::get('/admin/activity-log',[MainController::class,'activityLog'])->name('admin.activity-log');
 
