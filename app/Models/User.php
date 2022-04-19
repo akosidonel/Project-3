@@ -13,6 +13,7 @@ class User extends Model
         'lname',
         'email',
         'phonenumber',
-        'password'
+        'password',
+        'status'
     ];
 }

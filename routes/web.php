@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 
+Route::get('/auth/register', [MainController::class,'register'])->name('auth.register');
 
 Route::get('/admin/department',[MainController::class,'department'])->name('admin.department');
 Route::post('/admin/save',[MainController::class,'save'])->name('admin.save');

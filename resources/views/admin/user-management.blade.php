@@ -108,7 +108,7 @@
         method: 'get',
         success: function(res){
           $("#user_ui").html(res);
-          $("#example").DataTable({
+          $("#userTable").DataTable({
             order:[0,'asc']
           });
         }
@@ -130,7 +130,19 @@
       processData: false,
       contentType: false,
       success: function(res){
-        console.log(res);
+        if(res.status == 200){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Department added successfully!',
+                    showConfirmButton: false,
+                    timer: 2500
+                  })
+                  fetchAllUsers();
+                }
+                $("#user_btn").text("Save");
+                $("#user_form")[0].reset();
+                $("#addUserModal").modal("hide");
       }
     });
   });

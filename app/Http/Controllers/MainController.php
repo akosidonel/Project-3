@@ -8,6 +8,11 @@ use App\Models\User;
 
 class MainController extends Controller
 {
+    //view login ui
+    Public function register(){
+        return view('auth.register');
+    }
+
     //view dashboard ui
     Public function dashboard(){
         return view('admin.dashboard');
@@ -134,7 +139,7 @@ class MainController extends Controller
         $users = User::all();
         $output = "";
         if($users->count() > 0){
-            $output .= '<table id="example" class="table table-striped dt-responsive nowrap text-center align-middle" style="width:100%">
+            $output .= '<table id="userTable" class="table table-striped dt-responsive nowrap text-center align-middle" style="width:100%">
             <thead>
             <tr>
                 <th>No.</th>
