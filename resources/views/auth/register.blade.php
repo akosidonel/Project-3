@@ -16,50 +16,71 @@
 <div class="register-box">
   <div class="card">
     <div class="card-body register-card-body">
-      <p class="login-box-msg">Register</p>
+      <h4 class="login-box-msg">Get started</h4>
 
-      <form action="#" method="post">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter first name">
+      <form action=" {{ route('auth.save_register') }}" method="post">
+        @if(Session::get('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+                  <div class="alert-message">
+                    <strong>Well done </strong>{{ Session::get('success')}}
+                  </div>
+          </div>
+        @endif
+        @if(Session::get('fail'))
+          <div class="alert alert-danger alert-dismissible" role="alert">
+              <div class="alert-message">
+                <strong>Oppps!</strong>{{ Session::get('fail')}}
+              </div>
+            </div>
+          @endif	
+
+        @csrf
+        <div class="input-group">
+          <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter first name" value="{{ old('firstname')}}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter last name">
+        <span class="text-danger">@error('firstname') {{$message}} @enderror</span>
+        <div class="input-group mt-3">
+          <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter last name" value="{{ old('lastname') }}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+        <span class="text-danger">@error('lastname') {{$message}} @enderror</span>
+        <div class="input-group mt-3">
+          <input type="text" class="form-control" id="email" name="email" placeholder="Enter email" value="{{ old('email')}}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+        <span class="text-danger">@error('email') {{$message}} @enderror</span>
+        <div class="input-group mt-3">
+          <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" value="{{ old('phone')}}">
+          <div class="input-group-append"> 
+            <div class="input-group-text">
+              <span class="fas fa-phone"></span>
+            </div>
+          </div>
+        </div>
+        <span class="text-danger">@error('phone') {{$message}} @enderror</span>
+        <div class="input-group mt-3">
+          <input type="text" class="form-control" id="password" name="password" placeholder="Enter password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
+        <span class="text-danger">@error('password') {{$message}} @enderror</span>
+        <div class="row mt-3">
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block mb-3">Register</button>

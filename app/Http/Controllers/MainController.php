@@ -12,6 +12,32 @@ class MainController extends Controller
     Public function register(){
         return view('auth.register');
     }
+    Public function save_register(Request $request){
+        
+        //validate request
+        $request->validate([
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'email'=>'required|email|unique:users',
+            'phone'=>'required',
+            'password'=>'required|min:12|max:15'
+        ]);
+
+        $user = new User;
+        $user->firstname = $request->firstname;
+        $user->lastname  = $request->lastname;
+        $user->email = $request->email;
+        $user->phonenumber = $request->phone;
+        $user->password = $request->password;
+        $save = $user->save();
+
+        if($save){
+            return back()->with('success', 'Successfully Added!');
+        }else{
+            return back()->with('fail', 'Something went wrong');
+        }
+
+    }
 
     //view dashboard ui
     Public function dashboard(){
@@ -123,11 +149,11 @@ class MainController extends Controller
     }
     Public function saveUser(Request $request){
         $user_data = [
-            'fname'=> $request->fname,
-            'lname'=> $request->lname,
-            'email'=> $request->email,
-            'phonenumber'=> $request->phonenumber,
-            'password'=> $request->password
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'phonenumber' => $request->phonenumber,
+            'password' => $request->password
         ];
 
         User::create($user_data);

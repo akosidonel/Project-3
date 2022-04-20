@@ -42,11 +42,11 @@
                         @csrf  
                         <div class="form-group">
                             <label for="departmentInput">First Name</label>
-                            <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter first name">
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter first name">
                           </div>
                           <div class="form-group">
                             <label for="departmentCodeInput">Last Name</label>
-                            <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter last name">
+                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter last name">
                           </div>
                           <div class="form-group">
                             <label for="departmentCodeInput">Email</label>
