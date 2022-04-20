@@ -82,14 +82,14 @@
         <span class="text-danger">@error('password') {{$message}} @enderror</span>
         <div class="row mt-3">
           <!-- /.col -->
-          <div class="col-4">
+          <div class="col">
             <button type="submit" class="btn btn-primary btn-block mb-3">Register</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
 
-      <a href="login.html" class="text-center">I already have a account</a>
+      <a href="/auth/login" class="text-center">I already have a account</a>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->

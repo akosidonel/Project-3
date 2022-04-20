@@ -5,10 +5,40 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
 {
     //view login ui
+    Public function login(){
+        return view('auth.login');
+    }
+    Public function check(Request $request){
+        //validate login input
+        $request->validate([
+            
+            'email'=>'required|email',
+            'password'=>'required|min:8',
+
+        ]);
+        $users = User::where('email','=', $request->email)->first();
+
+        if($users){
+           if(Hash::check($request->password, $users->password)){
+                $request->session()->put('LoggedUser', $users->id);
+                return redirect('/admin/dashboard');
+           }else{
+               return back()->with('fail',' password not matches!');
+           }
+            
+        }else{
+           return back()->with('fail', ' we do not recognize this email!');
+        }
+    }
+
+
+
+    //view register ui
     Public function register(){
         return view('auth.register');
     }
@@ -20,7 +50,7 @@ class MainController extends Controller
             'lastname'=>'required',
             'email'=>'required|email|unique:users',
             'phone'=>'required',
-            'password'=>'required|min:12|max:15'
+            'password'=>'required|min:8|max:12'
         ]);
 
         $user = new User;
@@ -28,7 +58,7 @@ class MainController extends Controller
         $user->lastname  = $request->lastname;
         $user->email = $request->email;
         $user->phonenumber = $request->phone;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $save = $user->save();
 
         if($save){
