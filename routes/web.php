@@ -23,7 +23,8 @@ Route::get('/admin/dashboard',[MainController::class,'dashboard'])->name('admin.
 
 
 Route::get('/admin/gen-inventory',[MainController::class,'generalFundInventory'])->name('admin.gen-inventory');
-Route::get('/admin/save-gen-inventory',[MainController::class,'saveGenInventory'])->name('admin.saveGenInventory');
+Route::get('/admin/fetch-gen-inventory',[MainController::class,'fetchGenInventory'])->name('admin.fetchGenInventory');
+Route::post('/admin/save-gen-inventory',[MainController::class,'saveGenInventory'])->name('admin.saveGenInventory');
 
 
 

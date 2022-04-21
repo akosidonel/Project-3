@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
 {
-    //view login ui
+    //display login gui
     Public function login(){
         return view('auth.login');
     }
@@ -30,13 +30,12 @@ class MainController extends Controller
                 return redirect('/admin/dashboard');
            }else{
                return back()->with('fail',' password not matches!');
-           }
-            
+           }     
         }else{
            return back()->with('fail', ' we do not recognize this email!');
         }
     }
-
+    //logout function
     Public function logout(){
         if(session()->has('LoggedUser')){
             session()->put('LoggedUser');
@@ -44,7 +43,7 @@ class MainController extends Controller
         }
     }
 
-    //view register ui
+    //display register gui
     Public function register(){
         return view('auth.register');
     }
@@ -75,11 +74,11 @@ class MainController extends Controller
 
     }
 
-    //view dashboard ui
+    //display dashboard gui
     Public function dashboard(){
         return view('admin.dashboard');
     }
-    //view department ui
+    //display department gui
     Public function department(){
         return view('admin.department');
     }
@@ -96,7 +95,7 @@ class MainController extends Controller
             ]);
     }
     //fetch dapartment ajax request
-    //view all department data in the dataTable
+    //display all data in dataTable
     Public function fetchAllDept(){
        $department = Department::all();
        $output = "";
@@ -139,7 +138,7 @@ class MainController extends Controller
            echo '<h1 class="text-center text-secondary my-5">No records found in the database!</h1>';
        }
     }
-    //view specific department in modal using ajax request
+    //display specific department info in modal using ajax request
     Public function editDept(Request $request){
         $id = $request->id;
         $dept_id = Department::find($id);
@@ -165,12 +164,12 @@ class MainController extends Controller
     }
 
 
-    //view general fund inventory ui
+    //dispaly gppe inventory gui
     Public function generalFundInventory(){
         return view('admin.gen-inventory');
     }
-    //add gen-inventory ajax request
-    Public function saveGenInventory(Request $request){
+    //display all data in datatable ajax request
+    Public function fetchGenInventory(Request $request){
         $general_inventory = GeneralFundInventory::all();
         $output = "";
         if($general_inventory->count() > 0){
@@ -241,25 +240,30 @@ class MainController extends Controller
             echo '<h1 class="text-center text-secondary my-5">No records found in the database!</h1>';
         }
     }
+    Public function saveGenInventory(Request $request){
+       
+        print_r($_POST);
+    }
 
 
 
-    //view sef fund inventory ui
+    //display sef fund inventory gui
     Public function sefInventory(){
         return view('admin.sef-inventory');
     }
-    // view return item ui
+    //display return item gui
     Public function returnItem(){
         return view('admin.return-item');
     }
-    //view archive item ui
+    //display archive item gui
     Public function archived(){
         return view('admin.archived');
     }
-    //view user-management ui
+    //display user-management gui
     Public function userManagement(){
         return view('admin.user-management');
     }
+    //add user infomation into database ajax request
     Public function saveUser(Request $request){
         $user_data = [
             'firstname' => $request->firstname,
@@ -325,7 +329,7 @@ class MainController extends Controller
     }
 
 
-
+    //display activity-log gui
     Public function activityLog(){
         return view('admin.activity-log');
     }

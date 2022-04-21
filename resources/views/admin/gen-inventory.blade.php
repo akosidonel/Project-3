@@ -38,13 +38,13 @@
                         <h5 class="modal-title" id="exampleModalLabel">Add Item Information</h5>
                       </div>
                       <div class="modal-body">  
-                        <form action="#" method="post" id="item_form" enctype="multipart/form-data">
+                        <form action="{{ route('admin.saveGenInventory')}}" method="post" id="item_form" enctype="multipart/form-data">
                         @csrf  
-
                         <div class="form-row">
                         <div class="form-group col-md-6">
-                          <label for="inputEmail4">Property Number</label>
-                          <input type="text" class="form-control" name="property_number" id="property_number" placeholder="Property Number">
+                          <label for="inputPropertyNumber">Property Number</label>
+                          <input type="text" class="form-control" name="property_number" id="property_number" placeholder="Enter Property Number">
+                          <span class="text-danger">@error('property_number') {{$message}} @enderror</span>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputDate">Date</label>
@@ -57,20 +57,20 @@
                       </div>
                       <div class="form-group">
                       <label for="forInputDescription">Description</label>
-                        <textarea class="form-control" name="description" id="description" rows="3" placeholder="Description"></textarea>
+                        <textarea class="form-control" name="description" id="description" rows="3" placeholder="Enter Description..."></textarea>
                       </div>
                       <div class="form-row">
                       <div class="form-group col-md-4">
                           <label for="inputQuantity">Quantity</label>
-                          <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Enter quantity">
+                          <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Enter Quantity">
                         </div>
                         <div class="form-group col-md-4">
                           <label for="inputUnitValue">Unit Value</label>
-                          <input type="text" class="form-control" name="unit_value" id="unit_value">
+                          <input type="text" class="form-control" name="unit_value" id="unit_value" placeholder="Enter Unit Value">
                         </div>
                         <div class="form-group col-md-4">
                           <label for="inputTotalValue">Total Value</label>
-                          <input type="text" class="form-control" name="total_value" id="total_value">
+                          <input type="text" class="form-control" name="total_value" id="total_value" placeholder="Enter Total Value">
                         </div>
                         
                       </div>
@@ -109,7 +109,7 @@
                       </div>
                       <div class="form-group col-md-6">
                         <label for="inputPageNumber">Page Number</label>
-                        <input type="text" class="form-control" name="page_number" id="page_number" placeholder="Enter Supplier">
+                        <input type="text" class="form-control" name="page_number" id="page_number" placeholder="Enter Page Number">
                       </div>
                       </div>
                       <div class="form-row">
@@ -127,8 +127,12 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="inputRemarks">Status</label>
-                        <input type="text" class="form-control" name="status" id="status" placeholder="Enter Remarks">
+                        <label for="inputStatus">Status</label>
+                        <select id="department" name="department" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>Serviceable</option>
+                            <option>Unserviceable</option>
+                          </select>
                       </div>
 
                       </div>
@@ -168,7 +172,7 @@
 
     function fetchAllGenInventory(){
       $.ajax({
-        url: '{{ route('admin.saveGenInventory') }}',
+        url: '{{ route('admin.fetchGenInventory') }}',
         method: 'get',
         success: function(res){
           $("#gen_inventory_ui").html(res);
@@ -178,7 +182,23 @@
         }
       });
     }
+    $("#item_form").submit(function(e){
+      e.preventDefault();
+      const fd = new FormData(this);
+      $("#item_btn").text("Saving...");
 
+      $.ajax({
+        url: '{{ route('admin.saveGenInventory') }}',
+        method: 'post',
+        data: fd,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function(res){
+          console.log(res);
+        }
+      });
+    });
   });
 </script>
 @endsection
