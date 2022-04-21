@@ -98,13 +98,19 @@
                           </select>
                         </div>
                      </div>
-                     <div class="form-group">
+                      <div class="form-group">
                         <label for="inputEndUser">End User</label>
                         <input type="text" class="form-control" name="enduser" id="enduser" placeholder="Enter End User">
                       </div>
-                      <div class="form-group">
+                      <div class="form-row">
+                      <div class="form-group col-md-6">
                         <label for="inputSupplier">Supplier</label>
                         <input type="text" class="form-control" name="supplier" id="supplier" placeholder="Enter Supplier">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputPageNumber">Page Number</label>
+                        <input type="text" class="form-control" name="page_number" id="page_number" placeholder="Enter Supplier">
+                      </div>
                       </div>
                       <div class="form-row">
                         <div class="form-group col-md-4">
@@ -157,6 +163,22 @@
   $(document).ready(function(){
     $('#unit_value').simpleMoneyFormat();
     $('#total_value').simpleMoneyFormat();
+
+    fetchAllGenInventory();
+
+    function fetchAllGenInventory(){
+      $.ajax({
+        url: '{{ route('admin.saveGenInventory') }}',
+        method: 'get',
+        success: function(res){
+          $("#gen_inventory_ui").html(res);
+          $("#example").DataTable({
+            order:[0, 'asc']
+          });
+        }
+      });
+    }
+
   });
 </script>
 @endsection

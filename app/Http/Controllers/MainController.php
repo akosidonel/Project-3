@@ -171,8 +171,75 @@ class MainController extends Controller
     }
     //add gen-inventory ajax request
     Public function saveGenInventory(Request $request){
-
-
+        $general_inventory = GeneralFundInventory::all();
+        $output = "";
+        if($general_inventory->count() > 0){
+            $output .= '<table id="example" class="table table-striped dt-responsive  align-middle width:100%">
+            <thead>
+            <tr>
+                <th>Article</th>
+                <th>Description</th>
+                <th>Property Number</th>
+                <th>Unit Value</th>    
+                <th>Total Value</th>  
+                <th>Location</th>    
+                <th>Department</th>    
+                <th>End User</th>    
+                <th>Supplier</th> 
+                <th>Code</th>
+                <th>Date</th> 
+                <th>Status</th>   
+                <th>Action</th>        
+            </tr>
+        </thead>
+        <tbody>';
+         foreach($general_inventory as $data){
+             $output .='
+             <tr>
+                 <td>'.$data->article.'</td>
+                 <td>'.$data->description.'</td>
+                 <td>'.$data->property_number.'</td>
+                 <td>'.$data->unit_value.'</td>
+                 <td>'.$data->total_value.'</td>
+                 <td>'.$data->location.'</td>
+                 <td>'.$data->department.'</td>
+                 <td>'.$data->enduser.'</td>
+                 <td>'.$data->supplier.'</td>
+                 <td>'.$data->account_code.'</td>
+                 <td>'.$data->date.'</td>
+                 <td>Serviceable</td>
+                 
+                
+                 <td>
+                 <a href="#" id="'.$data->id.'" class="text-success mx-1 editIcon" data-toggle="modal" data-target="#editDepartmentModal" ><i class="bi bi-pencil-square h4"></i></a>
+                 <a href="#" id="'.$data->id.'" class="text-danger mx-1 deleteIcon"><i class="bi bi-trash h4"></i></a>
+                 </td>
+             </tr>
+             ';
+         }
+         $output .='</tbody>
+         <tfoot>
+             <tr>
+             <th>Article</th>
+             <th>Description</th>
+             <th>Property Number</th>
+             <th>Unit Value</th>    
+             <th>Total Value</th> 
+             <th>Location</th>    
+             <th>Department</th>    
+             <th>End User</th>    
+             <th>Supplier</th> 
+             <th>Code</th> 
+             <th>Date</th>   
+             <th>Status</th>   
+             <th>Action</th>  
+             </tr>
+         </tfoot>
+             </table>';
+             echo $output;
+        }else{
+            echo '<h1 class="text-center text-secondary my-5">No records found in the database!</h1>';
+        }
     }
 
 

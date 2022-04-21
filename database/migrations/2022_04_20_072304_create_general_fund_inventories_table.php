@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('account_code');
             $table->string('obr_number');
             $table->string('purchase_order_number');
+            $table->string('page_number');
             $table->string('date');
             $table->string('status');
             $table->timestamps();

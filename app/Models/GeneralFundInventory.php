@@ -22,6 +22,7 @@ class GeneralFundInventory extends Model
         'account_code',
         'obr_number',
         'purchase_order_number',
+        'page_number',
         'date',
         'status',
     ];
