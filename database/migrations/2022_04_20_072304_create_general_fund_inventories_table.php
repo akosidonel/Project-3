@@ -15,6 +15,21 @@ return new class extends Migration
     {
         Schema::create('general_fund_inventories', function (Blueprint $table) {
             $table->id();
+            $table->string('property_number');
+            $table->string('quantity');
+            $table->string('article');
+            $table->string('description');
+            $table->string('unit_value');
+            $table->string('total_value');
+            $table->string('location');
+            $table->string('department');
+            $table->string('enduser');
+            $table->string('supplier');
+            $table->string('account_code');
+            $table->string('obr_number');
+            $table->string('purchase_order_number');
+            $table->string('date');
+            $table->string('status');
             $table->timestamps();
         });
     }

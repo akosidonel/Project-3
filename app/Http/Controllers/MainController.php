@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\User;
+use App\Models\GeneralFundInventory;
 use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
@@ -36,7 +37,12 @@ class MainController extends Controller
         }
     }
 
-
+    Public function logout(){
+        if(session()->has('LoggedUser')){
+            session()->put('LoggedUser');
+            return redirect('/auth/login');
+        }
+    }
 
     //view register ui
     Public function register(){
@@ -157,10 +163,20 @@ class MainController extends Controller
         $id = $request->id;
         $dept_id = Department::destroy($id);
     }
+
+
     //view general fund inventory ui
     Public function generalFundInventory(){
         return view('admin.gen-inventory');
     }
+    //add gen-inventory ajax request
+    Public function saveGenInventory(Request $request){
+
+
+    }
+
+
+
     //view sef fund inventory ui
     Public function sefInventory(){
         return view('admin.sef-inventory');
@@ -211,7 +227,7 @@ class MainController extends Controller
              $output .='
              <tr>
                  <td>'.$data->id.'</td>
-                 <td>'.$data->fname.' '.$data->lname.'</td>
+                 <td>'.$data->firstname.' '.$data->lastname.'</td>
                  <td>'.$data->email.'</td>
                  <td>'.$data->phonenumber.'</td>
                  <td>Active</td>

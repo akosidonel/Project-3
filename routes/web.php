@@ -5,6 +5,7 @@ use App\Http\Controllers\MainController;
 
 Route::get('/auth/login',[MainController::class,'login'])->name('auth.login');
 Route::post('/auth/check',[MainController::class,'check'])->name('auth.check');
+Route::get('auth/logout',[MainController::class,'logout'])->name('auth.logout');
 Route::get('/auth/register', [MainController::class,'register'])->name('auth.register');
 Route::post('/auth/save-register',[MainController::class,'save_register'])->name('auth.save_register');
 
@@ -22,6 +23,10 @@ Route::get('/admin/dashboard',[MainController::class,'dashboard'])->name('admin.
 
 
 Route::get('/admin/gen-inventory',[MainController::class,'generalFundInventory'])->name('admin.gen-inventory');
+Route::post('/admin/save-gen-inventory',[MainController::class,'saveGenInventory'])->name('admin.save-gen-inventory');
+
+
+
 Route::get('/admin/sef-inventory',[MainController::class,'sefInventory'])->name('admin.sef-inventory');
 Route::get('/admin/return-item',[MainController::class,'returnItem'])->name('admin.return-item');
 Route::get('admin/archived',[MainController::class,'archived'])->name('admin.archived');
