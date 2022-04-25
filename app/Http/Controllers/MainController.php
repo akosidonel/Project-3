@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\User;
 use App\Models\GeneralFundInventory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator; 
 
 class MainController extends Controller
 {
@@ -33,13 +34,6 @@ class MainController extends Controller
            }     
         }else{
            return back()->with('fail', ' we do not recognize this email!');
-        }
-    }
-    //logout function
-    Public function logout(){
-        if(session()->has('LoggedUser')){
-            session()->put('LoggedUser');
-            return redirect('/auth/login');
         }
     }
 
@@ -84,15 +78,24 @@ class MainController extends Controller
     }
     //add department ajax request
     Public function save(Request $request){
-        $department_data = [
-            'department_name'=> $request->department_name,
-            'department_code'=> $request->department_code
-        ];
+        $validator = Validator::make($request->all() ,[
+            'department_name'=>'required',
+            'department_code'=>'required|unique:departments'
+        ]);
 
-        Department::create($department_data);
-            return response() ->json([
-                'status' => 200
-            ]);
+        if(!$validator->passes()){
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $department_data = [
+                'department_name'=> $request->department_name,
+                'department_code'=> $request->department_code
+            ]; 
+    
+            Department::insert($department_data);
+                return response() ->json([
+                    'status' => 200
+                ]);
+            }  
     }
     //fetch dapartment ajax request
     //display all data in dataTable
@@ -100,13 +103,14 @@ class MainController extends Controller
        $department = Department::all();
        $output = "";
        if($department->count() > 0){
-           $output .= '<table id="example" class="table table-striped dt-responsive nowrap text-center align-middle" style="width:100%">
+           $output .= '<table id="example" class="table table-striped dt-responsive nowrap align-middle" style="width:100%">
            <thead>
            <tr>
                <th>Department</th>
                <th>Code</th>
+               <th>Location</th>
                <th>Status</th>
-               <th>Action</th>        
+               <th class="text-center">Action</th>        
            </tr>
        </thead>
        <tbody>';
@@ -115,8 +119,9 @@ class MainController extends Controller
             <tr>
                 <td>'.$data->department_name.'</td>
                 <td>'.$data->department_code.'</td>
+                <td>City Hall</td>
                 <td>'.$data->status.'</td>
-                <td>
+                <td class="text-center">
                 <a href="#" id="'.$data->id.'" class="text-success mx-1 editIcon" data-toggle="modal" data-target="#editDepartmentModal" ><i class="bi bi-pencil-square h4"></i></a>
                 <a href="#" id="'.$data->id.'" class="text-danger mx-1 deleteIcon"><i class="bi bi-trash h4"></i></a>
                 </td>
@@ -128,8 +133,9 @@ class MainController extends Controller
             <tr>
                 <th>Department</th>
                 <th>Code</th>
+                <th>Location</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th class="text-center">Action</th>
             </tr>
         </tfoot>
             </table>';
@@ -148,9 +154,9 @@ class MainController extends Controller
     Public function updateDept(Request $request){
         $dept_update = Department::find($request->dept_id);
         $update_dept = [
-            'edit_department_name'=>$request->department_name,
-            'edit_department_code'=>$request->department_code,
-            'edit_department_status'=>$request->status
+            'department_name'=>$request->edit_department_name,
+            'department_code'=>$request->edit_department_code,
+            'status'=>$request->edit_department_status
         ];
         $dept_update->update($update_dept);
             return response()->json([

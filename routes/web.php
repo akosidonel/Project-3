@@ -5,7 +5,6 @@ use App\Http\Controllers\MainController;
 
 Route::get('/auth/login',[MainController::class,'login'])->name('auth.login');
 Route::post('/auth/check',[MainController::class,'check'])->name('auth.check');
-Route::get('auth/logout',[MainController::class,'logout'])->name('auth.logout');
 Route::get('/auth/register', [MainController::class,'register'])->name('auth.register');
 Route::post('/auth/save-register',[MainController::class,'save_register'])->name('auth.save_register');
 

@@ -43,10 +43,12 @@
                         <div class="form-group">
                             <label for="departmentInput">Department</label>
                             <input type="text" class="form-control" id="department_name" name="department_name" placeholder="Enter department">
+                            <span class="text-danger error-text department_name_error"></span>
                           </div>
                           <div class="form-group">
                             <label for="departmentCodeInput">Department Code</label>
                             <input type="text" class="form-control" id="department_code" name="department_code" placeholder="Enter department code">
+                            <span class="text-danger error-text department_code_error"></span>
                           </div>  
                       </div>
                       <div class="modal-footer bg-secondary">
@@ -154,7 +156,7 @@
                     Swal.fire({
                       position: 'center',
                       icon: 'success',
-                      title: 'Department deleted successfully!',
+                      title: 'Deleted successfully!',
                       showConfirmButton: false,
                       timer: 2500
                   });
@@ -183,7 +185,7 @@
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Department updated successfully!',
+              title: 'Updated successfully!',
               showConfirmButton: false,
               timer: 2500
             })
@@ -220,9 +222,7 @@
     //add new department ajax request
     $("#department_form").submit(function(e){
         e.preventDefault();
-        const fd = new FormData(this);
-        $("#department_btn").text("Saving...");
-
+        const fd = new FormData(this);    
         $.ajax({
             url: '{{ route('admin.save')}}',
             method: 'post',
@@ -230,8 +230,16 @@
             cache: false,
             processData: false,
             contentType: false,
+            beforeSend: function(){
+              $(document).find('span.error-text').text(''); 
+            },
             success: function(res){
-                if(res.status == 200){
+                if(res.status == 0){
+                  $.each(res.error, function(prefix, val){
+                      $('span.'+prefix+'_error').text(val[0]);
+                  });
+                }else{
+                  if(res.status == 200){
                   Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -244,6 +252,7 @@
                 $("#department_btn").text("Save");
                 $("#department_form")[0].reset();
                 $("#addDepartmentModal").modal("hide");
+                }
             } 
         });
     })
