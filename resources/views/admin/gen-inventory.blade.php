@@ -38,39 +38,45 @@
                         <h5 class="modal-title" id="exampleModalLabel">Add Item Information</h5>
                       </div>
                       <div class="modal-body">  
-                        <form action="{{ route('admin.saveGenInventory')}}" method="post" id="item_form" enctype="multipart/form-data">
+                        <form action="#" method="post" id="item_form" enctype="multipart/form-data">
                         @csrf  
                         <div class="form-row">
                         <div class="form-group col-md-6">
                           <label for="inputPropertyNumber">Property Number</label>
                           <input type="text" class="form-control" name="property_number" id="property_number" placeholder="Enter Property Number">
-                          <span class="text-danger">@error('property_number') {{$message}} @enderror</span>
+                          <span class="text-danger error-text property_number_error"></span>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputDate">Date</label>
                           <input type="text" class="form-control" name="date" id="date" placeholder="Enter Date">
+                          <span class="text-danger error-text date_error"></span>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="inputArcticle">Article</label>
                         <input type="text" class="form-control" name="article" id="article" placeholder="Enter Article">
+                        <span class="text-danger error-text article_error"></span>
                       </div>
                       <div class="form-group">
                       <label for="forInputDescription">Description</label>
                         <textarea class="form-control" name="description" id="description" rows="3" placeholder="Enter Description..."></textarea>
+                        <span class="text-danger error-text description_number_error"></span>
                       </div>
                       <div class="form-row">
                       <div class="form-group col-md-4">
                           <label for="inputQuantity">Quantity</label>
                           <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Enter Quantity">
+                          <span class="text-danger error-text quantity_number_error"></span>
                         </div>
                         <div class="form-group col-md-4">
                           <label for="inputUnitValue">Unit Value</label>
                           <input type="text" class="form-control" name="unit_value" id="unit_value" placeholder="Enter Unit Value">
+                          <span class="text-danger error-text unit_value_error"></span>
                         </div>
                         <div class="form-group col-md-4">
                           <label for="inputTotalValue">Total Value</label>
                           <input type="text" class="form-control" name="total_value" id="total_value" placeholder="Enter Total Value">
+                          <span class="text-danger error-text total_value_error"></span>
                         </div>
                         
                       </div>
@@ -101,34 +107,40 @@
                       <div class="form-group">
                         <label for="inputEndUser">End User</label>
                         <input type="text" class="form-control" name="enduser" id="enduser" placeholder="Enter End User">
+                        <span class="text-danger error-text enduser_error"></span>
                       </div>
                       <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="inputSupplier">Supplier</label>
                         <input type="text" class="form-control" name="supplier" id="supplier" placeholder="Enter Supplier">
+                        <span class="text-danger error-text supplier_error"></span>
                       </div>
                       <div class="form-group col-md-6">
                         <label for="inputPageNumber">Page Number</label>
                         <input type="text" class="form-control" name="page_number" id="page_number" placeholder="Enter Page Number">
+                        <span class="text-danger error-text page_number_error"></span>
                       </div>
                       </div>
                       <div class="form-row">
                         <div class="form-group col-md-4">
                         <label for="inputAccountCode">Account Code</label>
                         <input type="text" class="form-control" name="account_code" id="account_code" placeholder="Enter Account Code">
+                        <span class="text-danger error-text account_code_error"></span>
                         </div>
                         <div class="form-group col-md-4">
                         <label for="inputPurchaseOderNumber">Purchase Order Number</label>
                         <input type="text" class="form-control" name="purchase_order_number" id="purchase_order_number" placeholder="Enter Purchase Order Number">
+                        <span class="text-danger error-text purchase_order_number_error"></span>
                         </div>
                         <div class="form-group col-md-4">
                         <label for="inputObrNumber">Obligation Request Number</label>
                         <input type="text" class="form-control" name="obr_number" id="obr_number" placeholder="Enter Obligation Request Number">
+                        <span class="text-danger error-text obr_number_error"></span>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="inputStatus">Status</label>
-                        <select id="department" name="department" class="form-control">
+                        <select id="status" name="status" class="form-control">
                             <option selected>Choose...</option>
                             <option>Serviceable</option>
                             <option>Unserviceable</option>
@@ -165,10 +177,11 @@
 <script type="text/javascript" src="{{ asset('plugins/simple-money-format/simple.money.format.js') }}"></script>
 <script>
   $(document).ready(function(){
+    //currency format
     $('#unit_value').simpleMoneyFormat();
     $('#total_value').simpleMoneyFormat();
 
-    fetchAllGenInventory();
+    fetchAllGenInventory();//auto display table without refresh
 
     function fetchAllGenInventory(){
       $.ajax({
@@ -182,6 +195,7 @@
         }
       });
     }
+    //add general fund data ajax request
     $("#item_form").submit(function(e){
       e.preventDefault();
       const fd = new FormData(this);
@@ -199,6 +213,8 @@
         }
       });
     });
+
+
   });
 </script>
 @endsection

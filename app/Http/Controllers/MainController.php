@@ -41,6 +41,7 @@ class MainController extends Controller
     Public function register(){
         return view('auth.register');
     }
+    //add register request
     Public function save_register(Request $request){
         
         //validate request
@@ -247,8 +248,34 @@ class MainController extends Controller
         }
     }
     Public function saveGenInventory(Request $request){
-       
-        print_r($_POST);
+       $validator = Validator::make($request->all(), [
+           'property_number'=>'request|unique:general_fund_inventories',
+           'date'=>'required',
+           'article'=>'required',
+           'description'=>'required',
+           'quantity'=>'required',
+           'unit_value'=>'required',
+           'total_value'=>'required',
+           'enduser'=>'required',
+           'supplier'=>'required',
+           'page_number'=>'required',
+           'account_code'=>'required',
+           'purchase_order_number'=>'required|unique:general_fund_inventories',
+           'obr_number'=>'required|unique:general_fund_inventories'
+       ]);
+       if(!$validator->passes()){
+        return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+    }else{
+        $genfund_data = [
+            'property_number'=> $request->property_number,
+            'date'=> $request-> $request->date,
+        ]; 
+
+        GeneralFundInventory::insert($genfund_data);
+            return response() ->json([
+                'status' => 200
+            ]);
+        } 
     }
 
 
