@@ -24,6 +24,6 @@ class GeneralFundInventory extends Model
         'purchase_order_number',
         'page_number',
         'date',
-        'status',
+        'remarks',
     ];
 }

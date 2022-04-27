@@ -218,7 +218,8 @@ class MainController extends Controller
                 
                  <td>
                  <a href="#" id="'.$data->id.'" class="text-success mx-1 editIcon" data-toggle="modal" data-target="#editDepartmentModal" ><i class="bi bi-pencil-square h4"></i></a>
-                 <a href="#" id="'.$data->id.'" class="text-danger mx-1 deleteIcon"><i class="bi bi-trash h4"></i></a>
+                 <a href="#" id="'.$data->id.'" class="text-info mx-1 deleteIcon"><i class="bi bi-printer h4"></i></a>
+                 <a href="#" id="'.$data->id.'" class="text-danger mx-1 deleteIcon"><i class="bi bi-archive h4"></i></a>
                  </td>
              </tr>
              ';
@@ -247,9 +248,10 @@ class MainController extends Controller
             echo '<h1 class="text-center text-secondary my-5">No records found in the database!</h1>';
         }
     }
+    // add gppe data ajax request
     Public function saveGenInventory(Request $request){
-       $validator = Validator::make($request->all(), [
-           'property_number'=>'request|unique:general_fund_inventories',
+       $validation = Validator::make($request->all(), [
+           'property_number'=>'required|unique:general_fund_inventories',
            'date'=>'required',
            'article'=>'required',
            'description'=>'required',
@@ -261,14 +263,26 @@ class MainController extends Controller
            'page_number'=>'required',
            'account_code'=>'required',
            'purchase_order_number'=>'required|unique:general_fund_inventories',
-           'obr_number'=>'required|unique:general_fund_inventories'
+           'obr_number'=>'required|unique:general_fund_inventories',
+           'remarks'=>'required'
        ]);
-       if(!$validator->passes()){
-        return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+       if(!$validation->passes()){
+        return response()->json(['status'=>0, 'error'=>$validation->errors()->toArray()]);
     }else{
         $genfund_data = [
             'property_number'=> $request->property_number,
             'date'=> $request-> $request->date,
+            'article'=> $request->article,
+            'descritption'=> $request->description,
+            'unit_value'=>$request->unit_value,
+            'total_value'=>$request->total_value,
+            'location'=>$request->location,
+            'enduser'=>$request->enduser,
+            'supplier'=>$request->supplier,
+            'purchase_order_number'=>$request->purchase_order_number,
+            'account_code'=>$request->account_code,
+            'obr_number'=>$request->obr_number,
+            'remarks'=>$request->status
         ]; 
 
         GeneralFundInventory::insert($genfund_data);

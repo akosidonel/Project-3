@@ -66,7 +66,7 @@
                       <div class="form-group col-md-4">
                           <label for="inputQuantity">Quantity</label>
                           <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Enter Quantity">
-                          <span class="text-danger error-text quantity_number_error"></span>
+                          <span class="text-danger error-text quantity_error"></span>
                         </div>
                         <div class="form-group col-md-4">
                           <label for="inputUnitValue">Unit Value</label>
@@ -140,7 +140,7 @@
                       </div>
                       <div class="form-group">
                         <label for="inputStatus">Status</label>
-                        <select id="status" name="status" class="form-control">
+                        <select id="remarks" name="remarks" class="form-control">
                             <option selected>Choose...</option>
                             <option>Serviceable</option>
                             <option>Unserviceable</option>
@@ -208,13 +208,32 @@
         cache: false,
         processData: false,
         contentType: false,
+        beforeSend: function(){
+          $(document).find('span.error_text').text('');
+        },
         success: function(res){
-          console.log(res);
+          if(res.status == 0){
+                  $.each(res.error, function(prefix, val){
+                      $('span.'+prefix+'_error').text(val[0]);
+                  });
+                }else{
+                  if(res.status == 200){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Item added successfully!',
+                    showConfirmButton: false,
+                    timer: 2500
+                  })
+                  fetchAllDepartment();
+                }
+                $("#item_btn").text("Save");
+                $("#item_form")[0].reset();
+                $("#addItemModal").modal("hide");
+           }
         }
       });
     });
-
-
   });
 </script>
 @endsection
