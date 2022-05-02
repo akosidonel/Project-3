@@ -190,7 +190,7 @@
         success: function(res){
           $("#gen_inventory_ui").html(res);
           $("#example").DataTable({
-            order:[0, 'asc']
+            order:[10, 'desc']
           });
         }
       });
@@ -225,7 +225,7 @@
                     showConfirmButton: false,
                     timer: 2500
                   })
-                  fetchAllDepartment();
+                  fetchAllGenInventory()
                 }
                 $("#item_btn").text("Save");
                 $("#item_form")[0].reset();
