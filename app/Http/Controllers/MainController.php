@@ -172,9 +172,13 @@ class MainController extends Controller
 
 
     //dispaly gppe inventory gui
-    Public function generalFundInventory(){
+    Public function generalDeptInventory(){
+        return view('admin.gen-dept-inventory');
+    }
+    Public function generalFundInventor(){
         return view('admin.gen-inventory');
     }
+
     //display all data in datatable ajax request
     Public function fetchGenInventory(Request $request){
         $general_inventory = GeneralFundInventory::all();

@@ -48,16 +48,58 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin/gen-inventory" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far bi-arrow-right nav-icon"></i>
-                  <p>GPPE Inventory</p>
+                  <p>General Fund</p>
+                  <i class="right fas fa-angle-left"></i>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="/admin/gen-dept-inventory" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>General fund - P.A.R</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>General fund - I.C.S</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>General fund - Code</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
-                <a href="/admin/sef-inventory" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far bi-arrow-right nav-icon"></i>
                   <p>SEF Inventory</p>
+                  <i class="right fas fa-angle-left"></i>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="/admin/sef-inventory" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>SEF - P.A.R</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>SEF - I.C.S</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>SEF - Code</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a href="/admin/return-item" class="nav-link">

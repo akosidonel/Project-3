@@ -23,9 +23,9 @@
     <section class="content">
 
       <!-- Default box -->
-      <div class="card">
+      <div class="card card-primary card-outline">
         <div class="card-header">
-          <h3 class="card-title">List of Department</h3>
+          <h3 class="card-title"><i class="bi bi-card-checklist"></i>  List of Department</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#addDepartmentModal"><i class="bi-clipboard-plus"></i>  Add Department</button>
