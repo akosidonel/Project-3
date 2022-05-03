@@ -271,18 +271,19 @@ class MainController extends Controller
     }else{
         $genfund_data = [
             'property_number'=> $request->property_number,
-            'date'=> $request-> $request->date,
+            'date'=> $request->date,
             'article'=> $request->article,
-            'descritption'=> $request->description,
+            'description'=> $request->description,
+            'quantity'=> $request->quantity,
             'unit_value'=>$request->unit_value,
             'total_value'=>$request->total_value,
-            'location'=>$request->location,
             'enduser'=>$request->enduser,
             'supplier'=>$request->supplier,
+            'page_number'=>$request->page_number,
             'purchase_order_number'=>$request->purchase_order_number,
             'account_code'=>$request->account_code,
             'obr_number'=>$request->obr_number,
-            'remarks'=>$request->status
+            'status'=>$request->remarks
         ]; 
 
         GeneralFundInventory::insert($genfund_data);
